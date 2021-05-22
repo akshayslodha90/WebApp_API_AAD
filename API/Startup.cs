@@ -70,8 +70,7 @@ namespace CourseLibrary.API
             services.AddDbContext<CourseLibraryContext>(options =>
             {
                 options.UseSqlServer(
-                    @"Server=(localdb)\MSSQLLocalDB;Database=CoreLibraryDB;Trusted_Connection=False;
-                    MultipleActiveResultSets=true;Integrated Security=False;User ID=demouser;Password=demouser123"
+                    @"Data Source=IN46TAALKQJL;Initial Catalog=CoreLibraryDB;Integrated Security=True"
                     );
 
             });
