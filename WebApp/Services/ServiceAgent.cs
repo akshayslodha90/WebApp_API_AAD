@@ -42,7 +42,7 @@ namespace ComplaintLoggingSystem.Services
 
         public async Task<T> GetData<T>(string Url)
         {
-            await PrepareAuthenticatedClient();
+            //await PrepareAuthenticatedClient();
 
             if (Url.Contains("?"))
             {
@@ -62,7 +62,7 @@ namespace ComplaintLoggingSystem.Services
 
         public async Task<T> PostData<T>(string Url, object postObject)
         {
-            await PrepareAuthenticatedClient();
+            //await PrepareAuthenticatedClient();
 
             var postJsonObject = JsonConvert.SerializeObject(postObject);
             var buffer = System.Text.Encoding.UTF8.GetBytes(postJsonObject);
@@ -76,7 +76,7 @@ namespace ComplaintLoggingSystem.Services
 
         public async Task<T> PutData<T>(string Url, object postObject)
         {
-            await PrepareAuthenticatedClient();
+            //await PrepareAuthenticatedClient();
 
             var postJsonObject = JsonConvert.SerializeObject(postObject);
             var buffer = System.Text.Encoding.UTF8.GetBytes(postJsonObject);
@@ -92,7 +92,7 @@ namespace ComplaintLoggingSystem.Services
 
         public async Task<T> DeleteData<T>(string Url)
         {
-            await PrepareAuthenticatedClient();
+            //await PrepareAuthenticatedClient();
 
             var response = await _httpClient.DeleteAsync(Url);
             return await ParseResponse<T>(response);

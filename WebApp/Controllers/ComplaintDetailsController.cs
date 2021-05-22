@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ComplaintLoggingSystem.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ComplaintDetailsController : Controller
     {
         private readonly IMapper _mapper;
@@ -28,7 +28,7 @@ namespace ComplaintLoggingSystem.Controllers
         // GET: ComplaintDetails
         public ActionResult Index()
         {
-            var complaintDetails = _complaintDetailsSystem.GetComplaintDetails(emailId: UserToolBox.GetEmailId()).Result;
+            var complaintDetails = _complaintDetailsSystem.GetComplaintDetails("ab123@gmail.com").Result;
             return View(_mapper.Map<List<ComplaintDetailsDomain>>(complaintDetails));
         }
 

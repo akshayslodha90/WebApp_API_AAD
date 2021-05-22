@@ -19,7 +19,7 @@ namespace ComplaintLoggingSystem.Helpers
             var emailId = _httpContext.User.Identity.Name;
             
 
-            return emailId;
+            return "ab123@gmail.com";
         }
     }
 

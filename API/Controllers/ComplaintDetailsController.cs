@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace CourseLibrary.API.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/complaintDetails")]
     public class ComplaintDetailsController : ControllerBase
