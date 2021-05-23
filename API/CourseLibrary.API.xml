@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CourseLibrary.API</name>
+    </assembly>
+    <members>
+        <member name="M:CourseLibrary.API.Controllers.ComplaintDetailsController.GetComplaintDetails(System.String)">
+            <summary>
+            GetComplaintDetails
+            </summary>
+            <remarks>Use this endpoints to get compliant details for the login user. Ideally UI team to get email from claims</remarks>
+            <param name="emailId">email address</param>
+            <returns>List of Complaint Details</returns>
+        </member>
+        <member name="M:CourseLibrary.API.Controllers.ComplaintDetailsController.GetComplaintDetail(System.Guid)">
+            <summary>
+            GetComplaintDetail
+            </summary>
+            <remarks>Use this endpoints to get compliant detail for the unique identifier. Unique Identifier can be get from GetComplaintDetails operation</remarks>
+            <param name="complaintId">Unique Identifier of Compliant</param>
+            <returns>Detail of Complaint base on unique identifier</returns>
+        </member>
+        <member name="M:CourseLibrary.API.Controllers.ComplaintDetailsController.CreateComplaintDetail(CourseLibrary.API.Models.ComplaintDetailForCreationDto)">
+            <summary>
+            CreateComplaintDetail
+            </summary>
+            <remarks>Use this endpoints to create compliant details</remarks>
+            <param name="complaintdetail">Details of Compliant Object</param>
+            <returns>Success on creation</returns>
+        </member>
+        <member name="M:CourseLibrary.API.Controllers.ComplaintDetailsController.UpdateComplaintDetail(System.Guid,CourseLibrary.API.Models.ComplaintDetailForUpdateDto)">
+            <summary>
+            UpdateComplaintDetail
+            </summary>
+            <remarks>Use this endpoint to update compliant details</remarks>
+            <param name="complaintId">Unique Identifier of Compliant</param>
+            <param name="complaintDetail">Updated Compliant Detail Object</param>
+            <returns>Success on update</returns>
+        </member>
+        <member name="M:CourseLibrary.API.Controllers.ComplaintDetailsController.DeleteComplaintDetail(System.Guid)">
+            <summary>
+            DeleteComplaintDetail
+            </summary>
+            <remarks>Use this endpoint to delete the compliant</remarks>
+            <param name="complaintId">Unique Identifier of Compliant</param>
+            <returns>Sucess on deletion</returns>
+        </member>
+    </members>
+</doc>

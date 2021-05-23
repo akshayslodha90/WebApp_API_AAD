@@ -13,6 +13,8 @@ using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.TokenCacheProviders.InMemory;
 using Newtonsoft.Json.Serialization;
 using System;
+using System.IO;
+using System.Reflection;
 
 namespace CourseLibrary.API
 {
@@ -63,6 +65,26 @@ namespace CourseLibrary.API
                 };
             });
 
+            #region OpenAPI Spec
+            services.AddSwaggerGen(setupAction =>
+            {
+                setupAction.SwaggerDoc(
+                    "OpenApi",
+                    new Microsoft.OpenApi.Models.OpenApiInfo()
+                    {
+                        Title = "Compliant Details API",
+                        Version = "1.0",
+                        Description = "CRUD API for Compliant System"
+                    });
+
+                var xmlCommentsFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentsFile);
+
+                setupAction.IncludeXmlComments(xmlCommentsFullPath);
+            });
+            #endregion
+
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddScoped<IComplaintDetailRepository, ComplaintDetailRepository>();
@@ -86,6 +108,18 @@ namespace CourseLibrary.API
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+
+            #region OpenAPI Spec
+            app.UseSwagger();
+
+            app.UseSwaggerUI(setupAction =>
+            {
+                setupAction.SwaggerEndpoint(
+                    "/swagger/OpenApi/swagger.json",
+                    "Compliant Details API");
+                setupAction.RoutePrefix = "";
+            });
+            #endregion
 
             app.UseEndpoints(endpoints =>
             {
