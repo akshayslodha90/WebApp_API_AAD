@@ -40,31 +40,9 @@ namespace ComplaintLoggingSystem
 
             services.AddOptions();
 
-
-            //services.AddAuthentication(sharedOptions =>
-            //{
-            //    sharedOptions.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            //    sharedOptions.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
-            //})
-            //.AddAzureAd(options => Configuration.Bind("AzureAd", options))
-            //.AddCookie();
-
             services.AddMicrosoftIdentityPlatformAuthentication(Configuration)
             .AddMsal(Configuration, new string[] { Configuration["TodoList:TodoListScope"] })
             .AddInMemoryTokenCaches();
-
-            //services.AddAuthentication(AzureADDefaults.AuthenticationScheme)
-            //    .AddAzureAD(options => Configuration.Bind("AzureAd", options));
-
-            //services.AddMvc(options =>
-            //{
-            //    var policy = new AuthorizationPolicyBuilder()
-            //        .RequireAuthenticatedUser()
-            //        .Build();
-            //    options.Filters.Add(new AuthorizeFilter(policy));
-            //})
-
-            //.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // Add APIs
             services.AddTodoListService(Configuration);
@@ -81,7 +59,7 @@ namespace ComplaintLoggingSystem
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddTransient<IComplaintDetailsSystem, ComplaintDetailsSystem>();
-            //services.AddMvc();
+  
             services.AddControllersWithViews(options =>
             {
                 var policy = new AuthorizationPolicyBuilder()
