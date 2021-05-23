@@ -1,9 +1,8 @@
-﻿using System;
+﻿using CourseLibrary.API.DbContexts;
+using CourseLibrary.API.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using CourseLibrary.API.DbContexts;
-using CourseLibrary.API.Entities;
 
 namespace CourseLibrary.API.Services
 {

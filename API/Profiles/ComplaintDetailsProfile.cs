@@ -1,8 +1,5 @@
 ﻿using AutoMapper;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CourseLibrary.API.Profiles
 {
@@ -16,13 +13,13 @@ namespace CourseLibrary.API.Profiles
             CreateMap<Models.ComplaintDetailForCreationDto, Entities.ComplaintDetail>()
                 .ForMember(
                 dest => dest.LastModifiedDate,
-                opt=>opt.MapFrom(src=> DateTime.UtcNow)
+                opt => opt.MapFrom(src => DateTime.UtcNow)
                 )
                  .ForMember(
                 dest => dest.CreatedDate,
                 opt => opt.MapFrom(src => DateTime.UtcNow)
                 );
-                
+
             CreateMap<Models.ComplaintDetailForUpdateDto, Entities.ComplaintDetail>()
                  .ForMember(
                 dest => dest.LastModifiedDate,
