@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Net;
 
 namespace CourseLibrary.API.Controllers
 {
@@ -34,12 +35,19 @@ namespace CourseLibrary.API.Controllers
         /// <param name="emailId">email address</param>
         /// <returns>List of Complaint Details</returns>
         [HttpGet("{emailId}")]
-        [ProducesResponseType( StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<IEnumerable<ComplaintDetailDto>> GetComplaintDetails(
             [FromRoute] string emailId)
         {
-            var complaintDetailsFromRepo = _complaintDetailRepository.GetComplaintDetails(emailId);
-            return Ok(_mapper.Map<IEnumerable<ComplaintDetailDto>>(complaintDetailsFromRepo));
+            try
+            {
+                var complaintDetailsFromRepo = _complaintDetailRepository.GetComplaintDetails(emailId);
+                return Ok(_mapper.Map<IEnumerable<ComplaintDetailDto>>(complaintDetailsFromRepo));
+            }
+            catch (Exception ex)
+            {
+                return new StatusCodeResult((int)HttpStatusCode.InternalServerError);
+            }
         }
 
         /// <summary>
@@ -52,14 +60,21 @@ namespace CourseLibrary.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<ComplaintCompleteDetailDto> GetComplaintDetail(Guid complaintId)
         {
-            var complaintDetailFromRepo = _complaintDetailRepository.GetComplaintDetail(complaintId);
-
-            if (complaintDetailFromRepo == null)
+            try
             {
-                return NotFound();
-            }
+                var complaintDetailFromRepo = _complaintDetailRepository.GetComplaintDetail(complaintId);
 
-            return Ok(_mapper.Map<ComplaintCompleteDetailDto>(complaintDetailFromRepo));
+                if (complaintDetailFromRepo == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(_mapper.Map<ComplaintCompleteDetailDto>(complaintDetailFromRepo));
+            }
+            catch (Exception ex)
+            {
+                return new StatusCodeResult((int)HttpStatusCode.InternalServerError);
+            }
         }
 
         /// <summary>
@@ -72,14 +87,21 @@ namespace CourseLibrary.API.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public ActionResult<ComplaintDetailDto> CreateComplaintDetail(ComplaintDetailForCreationDto complaintdetail)
         {
-            var complaintDetailEntity = _mapper.Map<Entities.ComplaintDetail>(complaintdetail);
-            _complaintDetailRepository.AddComplaintDetail(complaintDetailEntity);
-            _complaintDetailRepository.Save();
+            try
+            {
+                var complaintDetailEntity = _mapper.Map<Entities.ComplaintDetail>(complaintdetail);
+                _complaintDetailRepository.AddComplaintDetail(complaintDetailEntity);
+                _complaintDetailRepository.Save();
 
-            var complaintDetailToReturn = _mapper.Map<ComplaintDetailDto>(complaintDetailEntity);
-            return CreatedAtRoute("GetComplaintDetail",
-                new { complaintId = complaintDetailToReturn.Id },
-                complaintDetailToReturn);
+                var complaintDetailToReturn = _mapper.Map<ComplaintDetailDto>(complaintDetailEntity);
+                return CreatedAtRoute("GetComplaintDetail",
+                    new { complaintId = complaintDetailToReturn.Id },
+                    complaintDetailToReturn);
+            }
+            catch (Exception ex)
+            {
+                return new StatusCodeResult((int)HttpStatusCode.InternalServerError);
+            }
         }
 
         /// <summary>
@@ -94,17 +116,24 @@ namespace CourseLibrary.API.Controllers
         public ActionResult UpdateComplaintDetail(Guid complaintId,
             ComplaintDetailForUpdateDto complaintDetail)
         {
-            if (!_complaintDetailRepository.ComplaintExists(complaintId))
+            try
             {
-                return NotFound();
+                if (!_complaintDetailRepository.ComplaintExists(complaintId))
+                {
+                    return NotFound();
+                }
+                var complaintDetailFromRepo = _complaintDetailRepository.GetComplaintDetail(complaintId);
+                _mapper.Map(complaintDetail, complaintDetailFromRepo);
+
+                _complaintDetailRepository.UpdateComplaintDetail(complaintDetailFromRepo);
+
+                _complaintDetailRepository.Save();
+                return NoContent();
             }
-            var complaintDetailFromRepo = _complaintDetailRepository.GetComplaintDetail(complaintId);
-            _mapper.Map(complaintDetail, complaintDetailFromRepo);
-
-            _complaintDetailRepository.UpdateComplaintDetail(complaintDetailFromRepo);
-
-            _complaintDetailRepository.Save();
-            return NoContent();
+            catch (Exception ex)
+            {
+                return new StatusCodeResult((int)HttpStatusCode.InternalServerError);
+            }
         }
 
         /// <summary>
@@ -117,18 +146,25 @@ namespace CourseLibrary.API.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public ActionResult DeleteComplaintDetail(Guid complaintId)
         {
-            var complaintDetailFromRepo = _complaintDetailRepository.GetComplaintDetail(complaintId);
-
-            if (complaintDetailFromRepo == null)
+            try
             {
-                return NotFound();
+                var complaintDetailFromRepo = _complaintDetailRepository.GetComplaintDetail(complaintId);
+
+                if (complaintDetailFromRepo == null)
+                {
+                    return NotFound();
+                }
+
+                _complaintDetailRepository.DeleteComplaintDetail(complaintDetailFromRepo);
+
+                _complaintDetailRepository.Save();
+
+                return NoContent();
             }
-
-            _complaintDetailRepository.DeleteComplaintDetail(complaintDetailFromRepo);
-
-            _complaintDetailRepository.Save();
-
-            return NoContent();
+            catch (Exception ex)
+            {
+                return new StatusCodeResult((int)HttpStatusCode.InternalServerError);
+            }
         }
     }
 }
