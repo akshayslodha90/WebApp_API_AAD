@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using ComplaintLoggingSystem.DataModels;
+﻿using ComplaintLoggingSystem.DataModels;
 using ComplaintLoggingSystem.Helpers;
 using ComplaintLoggingSystem.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Identity.Web;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace ComplaintLoggingSystem.Services
 {
@@ -36,7 +33,7 @@ namespace ComplaintLoggingSystem.Services
 
         public ComplaintDetailsSystem(ITokenAcquisition tokenAcquisition, IConfiguration configuration, IHttpContextAccessor contextAccessor, IHttpClientFactory httpClientFactory) : base(httpClientFactory, tokenAcquisition, configuration, UserConstants.CORELIBRARYHTTPCLIENT)
         {
-           // this._httpClient = httpClient;
+            // this._httpClient = httpClient;
             this._tokenAcquisition = tokenAcquisition;
             this._contextAccessor = contextAccessor;
             this._TodoListScope = configuration["TodoList:TodoListScope"];
@@ -69,7 +66,7 @@ namespace ComplaintLoggingSystem.Services
             {
                 return Response.Failure.ToString();
             }
-            
+
         }
 
         public async Task<ComplaintCompleteDetailData> GetComplaintDetail(Guid id)
@@ -81,7 +78,7 @@ namespace ComplaintLoggingSystem.Services
 
         public async Task<List<ComplaintDetailsData>> GetComplaintDetails(string emailId)
         {
-            
+
             var complaintDetailsUrl = $"complaintDetails/{emailId}";
             var response = await GetData<List<ComplaintDetailsData>>(complaintDetailsUrl);
             return response;
@@ -104,6 +101,6 @@ namespace ComplaintLoggingSystem.Services
             }
         }
 
-       
+
     }
 }

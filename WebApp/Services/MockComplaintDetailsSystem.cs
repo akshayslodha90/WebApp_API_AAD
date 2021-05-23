@@ -1,8 +1,7 @@
-﻿using System;
+﻿using ComplaintLoggingSystem.DataModels;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using ComplaintLoggingSystem.DataModels;
 
 namespace ComplaintLoggingSystem.Services
 {
@@ -48,7 +47,7 @@ namespace ComplaintLoggingSystem.Services
 
             return complaintDetails;
         }
-      
+
         public Task<string> UpdateComplaintDetail(Guid complaintId, ComplaintDetailForUpdationData complaintDetailForCreationData)
         {
             throw new NotImplementedException();

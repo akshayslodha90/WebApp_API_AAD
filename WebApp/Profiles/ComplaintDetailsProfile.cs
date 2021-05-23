@@ -1,14 +1,9 @@
 ﻿using AutoMapper;
 using ComplaintLoggingSystem.DataModels;
-using ComplaintLoggingSystem.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Security.Principal;
 using ComplaintLoggingSystem.Helpers;
+using ComplaintLoggingSystem.Models;
 
-namespace CourseLibrary.API.Profiles
+namespace ComplaintLoggingSystem.Profiles
 {
     public class ComplaintDetailsProfile : Profile
     {
@@ -18,8 +13,8 @@ namespace CourseLibrary.API.Profiles
             CreateMap<ComplaintCompleteDetailData, ComplaintCompleteDetailDomain>();
             CreateMap<ComplaintDetailForCreationDomain, ComplaintDetailForCreationData>()
                 .ForMember
-                (dest=>dest.EmailAddress,
-                opt=>opt.MapFrom(src=>UserToolBox.GetEmailId()));
+                (dest => dest.EmailAddress,
+                opt => opt.MapFrom(src => UserToolBox.GetEmailId()));
             CreateMap<ComplaintDetailForUpdationDomain, ComplaintDetailForUpdationData>();
             CreateMap<ComplaintCompleteDetailData, ComplaintDetailForUpdationDomain>();
         }

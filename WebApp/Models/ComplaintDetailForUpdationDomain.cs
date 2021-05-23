@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ComplaintLoggingSystem.Models
 {
@@ -11,7 +7,7 @@ namespace ComplaintLoggingSystem.Models
         [MaxLength(10)]
         public string ContactNumber { get; set; }
 
-        [Required(ErrorMessage ="* required field")]
+        [Required(ErrorMessage = "* required field")]
         [MaxLength(50)]
         public string Title { get; set; }
 

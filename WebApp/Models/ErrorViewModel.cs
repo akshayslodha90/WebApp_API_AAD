@@ -1,5 +1,3 @@
-using System;
-
 namespace ComplaintLoggingSystem.Models
 {
     public class ErrorViewModel

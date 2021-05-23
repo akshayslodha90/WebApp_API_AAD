@@ -5,19 +5,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using Microsoft.AspNetCore.Authentication.AzureAD.UI;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using AppContext = ComplaintLoggingSystem.Helpers.AppContext;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.TokenCacheProviders.InMemory;
+using System;
+using AppContext = ComplaintLoggingSystem.Helpers.AppContext;
 
 
 namespace ComplaintLoggingSystem
@@ -41,8 +36,8 @@ namespace ComplaintLoggingSystem
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
-            }); 
-            
+            });
+
             services.AddOptions();
 
 
@@ -55,7 +50,7 @@ namespace ComplaintLoggingSystem
             //.AddCookie();
 
             services.AddMicrosoftIdentityPlatformAuthentication(Configuration)
-            .AddMsal(Configuration,new string[] { Configuration["TodoList:TodoListScope"] })
+            .AddMsal(Configuration, new string[] { Configuration["TodoList:TodoListScope"] })
             .AddInMemoryTokenCaches();
 
             //services.AddAuthentication(AzureADDefaults.AuthenticationScheme)
@@ -76,7 +71,7 @@ namespace ComplaintLoggingSystem
 
             services.AddHttpClient();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-          
+
 
             services.AddHttpClient(UserConstants.CORELIBRARYHTTPCLIENT, client =>
             {

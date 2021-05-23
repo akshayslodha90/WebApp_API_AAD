@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ComplaintLoggingSystem.Models;
 using Microsoft.AspNetCore.Mvc;
-using ComplaintLoggingSystem.Models;
+using System.Diagnostics;
 
 namespace ComplaintLoggingSystem.Controllers
 {
