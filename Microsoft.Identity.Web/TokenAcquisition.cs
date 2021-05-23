@@ -176,7 +176,7 @@ namespace Microsoft.Identity.Web
                 accessToken = await GetAccessTokenOnBehalfOfUserFromCacheAsync(application, CurrentHttpContext.User, scopes, tenant)
                     .ConfigureAwait(false);
             }
-            catch(MsalUiRequiredException ex)
+            catch (MsalUiRequiredException ex)
             {
                 // GetAccessTokenOnBehalfOfUserAsync is an abstraction that can be called from a Web App or a Web API
                 // to get a token for a Web API on behalf of the user, but not necessarily with the on behalf of OAuth2.0

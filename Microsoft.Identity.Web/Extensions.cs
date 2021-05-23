@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Microsoft.Identity.Web
+﻿namespace Microsoft.Identity.Web
 {
     /// <summary>
     /// Extension methods that don't fit in any other class
