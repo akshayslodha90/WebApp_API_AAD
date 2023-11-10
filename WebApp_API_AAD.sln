@@ -1,13 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29519.87
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CourseLibrary.API", "API\CourseLibrary.API.csproj", "{20232B83-E69C-4D87-86D3-730B9C34C123}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComplaintLoggingSystem", "WebApp\ComplaintLoggingSystem.csproj", "{466D4460-3725-49BC-ABAE-CDA09B7100E0}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Identity.Web", "Microsoft.Identity.Web\Microsoft.Identity.Web.csproj", "{A52DDB43-9A41-4D74-86E4-94FE11E07247}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FAE40503-7F5C-47AE-9879-6427E72BA140}"
 	ProjectSection(SolutionItems) = preProject
@@ -28,10 +26,6 @@ Global
 		{466D4460-3725-49BC-ABAE-CDA09B7100E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{466D4460-3725-49BC-ABAE-CDA09B7100E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{466D4460-3725-49BC-ABAE-CDA09B7100E0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A52DDB43-9A41-4D74-86E4-94FE11E07247}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A52DDB43-9A41-4D74-86E4-94FE11E07247}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A52DDB43-9A41-4D74-86E4-94FE11E07247}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A52DDB43-9A41-4D74-86E4-94FE11E07247}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

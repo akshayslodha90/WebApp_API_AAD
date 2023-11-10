@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -41,10 +42,13 @@ namespace ComplaintLoggingSystem
 
             services.AddOptions();
 
-            services.AddMicrosoftIdentityPlatformAuthentication(Configuration)
-            .AddMsal(Configuration, new string[] { Configuration["TodoList:TodoListScope"] })
-            .AddInMemoryTokenCaches();
+            //services.AddMicrosoftIdentityPlatformAuthentication(Configuration)
+            //.AddMsal(Configuration, new string[] { Configuration["TodoList:TodoListScope"] })
+            //.AddInMemoryTokenCaches();
 
+            services.AddMicrosoftIdentityWebAppAuthentication(Configuration)
+                .EnableTokenAcquisitionToCallDownstreamApi(new string[] { Configuration["TodoList:TodoListScope"] })
+                .AddInMemoryTokenCaches();
             // Add APIs
             services.AddTodoListService(Configuration);
 
@@ -60,7 +64,7 @@ namespace ComplaintLoggingSystem
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddTransient<IComplaintDetailsSystem, ComplaintDetailsSystem>();
-  
+
             services.AddControllersWithViews(options =>
             {
                 var policy = new AuthorizationPolicyBuilder()

@@ -41,7 +41,7 @@ namespace ComplaintLoggingSystem.Services
 
         public async Task<T> GetData<T>(string Url)
         {
-            await PrepareAuthenticatedClient();
+            //await PrepareAuthenticatedClient();
 
             if (Url.Contains("?"))
             {
@@ -144,7 +144,8 @@ namespace ComplaintLoggingSystem.Services
 
         private async Task PrepareAuthenticatedClient()
         {
-            var accessToken = await this._tokenAcquisition.GetAccessTokenOnBehalfOfUserAsync(new[] { this._TodoListScope });
+            //var accessToken = await this._tokenAcquisition.GetAccessTokenOnBehalfOfUserAsync(new[] { this._TodoListScope });
+            var accessToken = await this._tokenAcquisition.GetAccessTokenForAppAsync(this._TodoListScope + "/.default", tenant: "0b44eb1e-f1c9-424b-8b7b-b9b680777c64");
             Debug.WriteLine($"access token-{accessToken}");
             this._httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             this._httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

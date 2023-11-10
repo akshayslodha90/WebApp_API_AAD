@@ -1,5 +1,6 @@
 using CourseLibrary.API.DbContexts;
 using CourseLibrary.API.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -31,8 +32,8 @@ namespace CourseLibrary.API
         {
             JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
 
-            services.AddProtectedWebApi(Configuration)
-            .AddInMemoryTokenCaches();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                     .AddMicrosoftIdentityWebApi(Configuration.GetSection("AzureAd"));
 
             services.AddControllers(setupAction =>
             {
@@ -93,7 +94,7 @@ namespace CourseLibrary.API
             services.AddDbContext<CourseLibraryContext>(options =>
             {
                 options.UseSqlServer(
-                    @"Data Source=WU20571\SQLEXPRESS;Initial Catalog=CoreLibraryDB;Integrated Security=True"
+                    @"Data Source=WU20571\SQLEXPRESS;Initial Catalog=CoreLibraryDB;Integrated Security=True;TrustServerCertificate=True"
                     );
 
             });
