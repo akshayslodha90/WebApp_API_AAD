@@ -93,7 +93,7 @@ namespace CourseLibrary.API
             services.AddDbContext<CourseLibraryContext>(options =>
             {
                 options.UseSqlServer(
-                    @"Data Source=WU20571\SQLEXPRESS;Initial Catalog=CoreLibraryDB;Integrated Security=True"
+                    @"Data Source=WU20571\SQLEXPRESS;Initial Catalog=CoreLibraryDB;Integrated Security=True;TrustServerCertificate=True"
                     );
 
             });
