@@ -1,17 +1,14 @@
-﻿using AutoMapper;
-using ComplaintLoggingSystem.Helpers;
+﻿using ComplaintLoggingSystem.Helpers;
 using ComplaintLoggingSystem.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Identity.Web;
-using Microsoft.Identity.Web.TokenCacheProviders.InMemory;
 using System;
 using AppContext = ComplaintLoggingSystem.Helpers.AppContext;
 
