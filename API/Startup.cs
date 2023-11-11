@@ -9,8 +9,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Identity.Web;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Reflection;
@@ -82,6 +84,46 @@ namespace CourseLibrary.API
                 var xmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentsFile);
 
                 setupAction.IncludeXmlComments(xmlCommentsFullPath);
+
+                // Define security requirements
+                setupAction.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please enter your Bearer token",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.OAuth2,
+                    Flows = new OpenApiOAuthFlows
+                    {
+                        AuthorizationCode = new OpenApiOAuthFlow
+                        {
+                            AuthorizationUrl = new Uri("https://login.microsoftonline.com/0b44eb1e-f1c9-424b-8b7b-b9b680777c64/oauth2/v2.0/authorize", UriKind.Absolute),
+                            TokenUrl = new Uri("https://login.microsoftonline.com/0b44eb1e-f1c9-424b-8b7b-b9b680777c64/oauth2/v2.0/token", UriKind.Absolute),
+                            Scopes = new Dictionary<string, string>
+                    {
+                        { "openid", "OpenID" },
+                        { "profile", "Profile" },
+                        { "user.read", "User.Read" },
+                                { "crud","crud"}
+                    }
+                        }
+                    }
+                });
+
+                // Define security scheme requirements
+                setupAction.AddSecurityRequirement(new OpenApiSecurityRequirement
+                    {
+                        {
+                            new OpenApiSecurityScheme
+                                {
+                                    Reference = new OpenApiReference
+                                        {
+                                            Type = ReferenceType.SecurityScheme,
+                                            Id = "oauth2"
+                                        }
+                                },
+                            new string[] { }
+                        }
+                    });
             });
             #endregion
 
@@ -119,6 +161,11 @@ namespace CourseLibrary.API
                     "/swagger/OpenApi/swagger.json",
                     "Compliant Details API");
                 setupAction.RoutePrefix = "";
+
+                // Optional: Set up authentication for Swagger UI
+                setupAction.OAuthClientId("03ceb66a-9042-4e6c-bf7a-c99854a90d86");
+                setupAction.OAuthAppName("Compliant Details API");
+                setupAction.OAuthUsePkce();
             });
             #endregion
 
