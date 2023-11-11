@@ -36,7 +36,7 @@ namespace ComplaintLoggingSystem.Services
             // this._httpClient = httpClient;
             this._tokenAcquisition = tokenAcquisition;
             this._contextAccessor = contextAccessor;
-            this._TodoListScope = configuration["TodoList:TodoListScope"];
+            this._TodoListScope = configuration["TodoList:TodoList"];
             this._TodoListBaseAddress = configuration["TodoList:TodoListBaseAddress"];
         }
 

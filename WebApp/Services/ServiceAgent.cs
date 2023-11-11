@@ -25,7 +25,7 @@ namespace ComplaintLoggingSystem.Services
         {
             _httpClientFactory = httpClientFactory;
             this._tokenAcquisition = tokenAcquisition;
-            this._TodoListScope = configuration["TodoList:TodoListScope"];
+            this._TodoListScope = configuration["TodoList:TodoList"];
             this._TodoListBaseAddress = configuration["TodoList:TodoListBaseAddress"];
             switch (clientName)
             {
@@ -146,40 +146,9 @@ namespace ComplaintLoggingSystem.Services
 
         private async Task PrepareAuthenticatedClient()
         {
-            try
-            {
-                string clientId = "cc42033c-c345-4c41-b3b8-619a3c54db57";
-                string clientSecret = "F938Q~omYeOfeGkddgLECUU3c54v4nAWddZwWb4U";
-                string tenantId = "0b44eb1e-f1c9-424b-8b7b-b9b680777c64";
-                //string scope = "api://03ceb66a-9042-4e6c-bf7a-c99854a90d86/Users.Read.All/.default";
-
-                var clientCredential = new ClientSecretCredential(tenantId, clientId, clientSecret);
-
-                //var graphServiceClient = new GraphServiceClient(new TokenCredentialAuthenticationProvider(clientCredential));
-
-                // Acquire a token using GetAccessTokenForAppAsync
-                var authenticationResult = await clientCredential.GetTokenAsync(new TokenRequestContext(new[] { this._TodoListScope + "/.default" }));
-
-                // Use the acquired token for making requests to the Graph API
-                this._httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authenticationResult.Token);
-                this._httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                // Example: Use the Graph API to get information about the signed-in user
-                //var me = await graphServiceClient.Me.Request().GetAsync();
-                //Console.WriteLine($"User: {me.DisplayName}");
-
-                //var accessToken = await this._tokenAcquisition.GetAccessTokenOnBehalfOfUserAsync(new[] { this._TodoListScope });
-                //var accessToken = await this._tokenAcquisition.GetAccessTokenForAppAsync(this._TodoListScope + "/.default", tenant: "0b44eb1e-f1c9-424b-8b7b-b9b680777c64");
-                //Debug.WriteLine($"access token-{accessToken}");
-                //this._httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-                //this._httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            }
-            catch (Exception ex)
-            {
-
-                Console.WriteLine(ex);
-            }
-
+            var accessToken = await this._tokenAcquisition.GetAccessTokenForAppAsync(this._TodoListScope + "/.default");
+            this._httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            this._httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
     }
 }
